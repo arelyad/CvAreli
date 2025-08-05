@@ -208,10 +208,10 @@ const Navigation = ({ activeSection, onNavigate, isMobileMenuOpen, toggleMobileM
     { id: 'perfil', title: 'Perfil Profesional', icon: <User size={20} /> },
     { id: 'habilidades', title: 'Habilidades Destacadas', icon: <Gem size={20} /> },
     { id: 'experiencia', title: 'Experiencia Profesional', icon: <Briefcase size={20} /> },
-    { id: 'proyectos', title: 'Proyectos de Innovación', icon: <Lightbulb size={20} /> },
-    { id: 'educacion', title: 'Educación', icon: <GraduationCap size={20} /> },
+    { id: 'proyectos', title: 'Proyectos de Innovación y Transformación Digital', icon: <Lightbulb size={20} /> }, // Título de proyecto actualizado
+    { id: 'educacion', title: 'Educación Académica', icon: <GraduationCap size={20} /> }, // Título de educación actualizado
     { id: 'idiomas', title: 'Idiomas', icon: <Globe size={20} /> },
-    { id: 'contacto', title: 'Contacto', icon: <Handshake size={20} /> }, // Nuevo elemento de navegación
+    { id: 'contacto', title: 'Contacto', icon: <Handshake size={20} /> },
   ];
 
   return (
