@@ -9,7 +9,43 @@ import {
 // =========================================================================================================
 //  COMPONENTES NUEVOS PARA EL CARRUSEL
 // =========================================================================================================
+
+// Hook personalizado para manejar la animación del carrusel con JavaScript
+const useMarqueeAnimation = (speed = 30) => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let animationFrameId;
+    let currentTranslateX = 0;
+    const contentWidth = container.scrollWidth / 2; // El ancho de la primera copia del contenido
+
+    const animate = () => {
+      // Mover el contenido
+      currentTranslateX -= 1;
+      
+      // Si el contenido se ha movido una vez por completo, reinicia la posición
+      if (currentTranslateX <= -contentWidth) {
+        currentTranslateX = 0;
+      }
+
+      container.style.transform = `translateX(${currentTranslateX}px)`;
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [speed]);
+
+  return { containerRef };
+};
+
 const MarqueeCarousel = () => {
+  const { containerRef } = useMarqueeAnimation();
+
   const phrases = [
     { text: 'Estrategia Empresarial', icon: <Landmark size={24} /> },
     { text: 'Orientación a Resultados', icon: <BarChart size={24} /> },
@@ -24,45 +60,39 @@ const MarqueeCarousel = () => {
 
   return (
     <div className="bg-transparent overflow-hidden h-16 w-full lg:w-[calc(100vw-20rem)] lg:ml-80">
+      {/* El estilo para ocultar en móviles se mantiene aquí */}
       <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-
-        .marquee-container {
-          display: flex;
-          animation: marquee 60s linear infinite;
-        }
-
-        .marquee-item {
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          white-space: nowrap;
-          padding: 0 2rem;
-          font-family: 'Inter', sans-serif;
-          font-size: 1.25rem; /* Ajustado para mejor legibilidad */
-          font-weight: 500;
-          color: #106659; /* Verde jade oscuro para el texto, como se solicitó */
-        }
-
-        .marquee-item .icon {
-          color: #d97706; /* Color ámbar oscuro para los íconos, como se solicitó */
-          margin-right: 0.5rem;
-          display: inline-block;
-          vertical-align: middle;
-        }
-
         /* Ocultar el carrusel en pantallas pequeñas para evitar solapamientos con la navegación */
         @media (max-width: 1023px) {
           .marquee-container-wrapper {
             display: none;
           }
         }
+        .marquee-container {
+            display: flex;
+            height: 100%;
+        }
+        .marquee-item {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            padding: 0 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #106659;
+        }
+        .marquee-item .icon {
+            color: #d97706;
+            margin-right: 0.5rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
       `}</style>
       <div className="marquee-container-wrapper h-full flex items-center">
-        <div className="marquee-container">
+        {/* El `ref` se adjunta al contenedor que animaremos */}
+        <div ref={containerRef} className="marquee-container">
           {fullContent.map((item, index) => (
             <div key={index} className="marquee-item">
               <span className="icon">{item.icon}</span>
