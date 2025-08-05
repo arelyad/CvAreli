@@ -1,6 +1,6 @@
 // App.jsx COMPLETO - TODAS LAS SECCIONES INTEGRADAS
 import React, { useState, useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom'; // Importación para el método de renderizado alternativo
 import {
   User, Briefcase, GraduationCap, Globe, Zap, Brain, Landmark, FileText, HardHat,
   Users, BarChart, Gem, Lightbulb, Info, Settings, Bot, Handshake, BookOpen, Flag,
@@ -708,10 +708,14 @@ function App() {
 // Esta parte es la que simula el archivo index.js, haciendo que la app sea autocontenida.
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(
+  // Se utiliza createRoot para compatibilidad con React 18
+  // FIX: Se cambió a ReactDOM.render para corregir un error de TypeError en el entorno.
+  // Es una solución alternativa para problemas de renderizado en configuraciones específicas.
+  ReactDOM.render(
     <React.StrictMode>
       <App />
-    </React.StrictMode>
+    </React.StrictMode>,
+    rootElement
   );
 } else {
   console.error("No se encontró el elemento con id 'root'. Asegúrate de que tu HTML tenga <div id='root'></div>.");
