@@ -87,13 +87,32 @@ const Navigation = ({ activeSection, onNavigate, isMobileMenuOpen, toggleMobileM
   return (
     // Se usan clases de color estáticas para que Tailwind las detecte
     <nav className="fixed lg:left-0 top-0 w-full lg:w-80 h-16 lg:h-screen bg-gray-900 text-gray-200 shadow-2xl z-50">
+      <style>{`
+        /* Animación para el efecto de brillo del texto */
+        @keyframes text-shine {
+          0% { background-position: 200% center; }
+          100% { background-position: -200% center; }
+        }
+        .text-gradient {
+          background: linear-gradient(90deg, #047857 0%, #34d399 50%, #047857 100%);
+          background-size: 200% auto;
+          color: transparent;
+          -webkit-background-clip: text;
+          background-clip: text;
+          animation: text-shine 5s ease-in-out infinite; /* Animación más lenta por defecto */
+        }
+        .text-gradient:hover {
+          animation-play-state: running; /* Solo se anima al pasar el mouse */
+        }
+      `}</style>
       <div className="container mx-auto px-4 lg:px-0 h-full flex items-center justify-between lg:block">
         {/* Título unificado y más visible */}
         <div className="lg:py-8 flex items-center lg:justify-center">
           <div className="flex-shrink-0 flex items-center lg:flex-col lg:text-center">
             <User size={32} className="text-amber-600 mr-3 lg:mb-4" />
             <h1 className="text-2xl font-bold font-sans text-gray-50">
-              <span className="block text-emerald-700 text-base font-semibold tracking-wider mb-1">CURRICULUM VITAE</span>
+              {/* Título con el nuevo estilo de degradado y animación */}
+              <span className="block text-xl font-bold tracking-wider mb-2 text-gradient">CURRICULUM VITAE</span>
               <span className="block">ARELI</span>
               <span className="block">AGUILAR</span>
               <span className="block">DELGADO</span>
