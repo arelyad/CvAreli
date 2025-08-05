@@ -1,77 +1,6 @@
+// App.tsx COMPLETO - TODAS LAS SECCIONES INTEGRADAS
 import React, { useState, useEffect, useRef } from 'react';
-import { User, Briefcase, GraduationCap, Globe, Zap, Brain, Landmark, FileText, HardHat, Users, BarChart, Gem, Lightbulb, Info, Settings, Bot, Handshake, BookOpen, Flag, LayoutDashboard, CheckCircle, HeartHandshake, Target, FlaskConical, Scale } from 'lucide-react';
-
-// ============================================================================
-// COMPONENTE: MarqueeCarousel (Carrusel interactivo tipo "marquee")
-// ============================================================================
-// Este componente crea un carrusel de frases con íconos que se desplaza
-// de forma infinita y se pausa al pasar el mouse por encima.
-const MarqueeCarousel = () => {
-  // Lista completa de frases con iconos
-  const phrases = [
-    { text: 'Estrategia Empresarial', icon: <BarChart size={24} /> },
-    { text: 'Orientación a Resultados', icon: <Target size={24} /> },
-    { text: 'Pensamiento Crítico y Sistémico', icon: <FlaskConical size={24} /> },
-    { text: 'IA y Tecnología en Evolución', icon: <Brain size={24} /> },
-    { text: 'Gestión de Proyectos', icon: <LayoutDashboard size={24} /> },
-    { text: 'Análisis para la Toma de Decisiones', icon: <Scale size={24} /> }
-  ];
-
-  const iconColor = '#f97316'; // El color naranja de los íconos
-  const textColor = '#047857'; // El color verde oscuro del texto
-
-  return (
-    // Contenedor principal del carrusel con desbordamiento oculto
-    <div className="relative w-full overflow-hidden bg-transparent py-4 z-10 lg:mt-0">
-      <style>{`
-        /*
-         * Animación para el desplazamiento continuo.
-         * Se ha mejorado la estructura para eliminar el "salto". La animación
-         * mueve el contenedor interno (marquee-track) un 50% de su propio ancho.
-         * Dado que el contenido está duplicado, esto crea un bucle perfecto.
-         */
-        @keyframes scroll-perfect {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); } /* Se mueve el 50% de su propio ancho */
-        }
-        
-        /* Contenedor que se desplaza y aplica la animación */
-        .marquee-track {
-          display: flex;
-          white-space: nowrap;
-          animation: scroll-perfect 30s linear infinite; /* Velocidad: 30s */
-          gap: 2rem; /* Espaciado entre frases */
-          will-change: transform; /* Optimización para una animación más suave */
-        }
-
-        /* Pausa la animación al pasar el mouse por encima para mejorar la UX */
-        .marquee-track:hover {
-          animation-play-state: paused;
-        }
-
-        /* Estilo para cada ítem del carrusel */
-        .marquee-item {
-          display: inline-flex;
-          align-items: center;
-          font-family: 'Inter', sans-serif;
-          font-weight: normal;
-          font-size: 1.125rem;
-          flex-shrink: 0; /* Evita que los items se reduzcan de tamaño */
-        }
-      `}</style>
-      <div className="marquee-track">
-        {/* Se duplica el contenido para asegurar un bucle visualmente perfecto sin espacios en blanco */}
-        {[...phrases, ...phrases].map((item, index) => (
-          <span key={index} className="marquee-item">
-            <span className="mr-3" style={{ color: iconColor }}>{item.icon}</span>
-            <span style={{ color: textColor }}>{item.text}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
+import { User, Briefcase, GraduationCap, Globe, Zap, Brain, Landmark, FileText, HardHat, Users, BarChart, Gem, Lightbulb, Info, Settings, Bot, Handshake, BookOpen, Flag, LayoutDashboard, CheckCircle, HeartHandshake } from 'lucide-react';
 
 // Componente de navegación rediseñado con clases estáticas de Tailwind
 const Navigation = ({ activeSection, onNavigate, isMobileMenuOpen, toggleMobileMenu }) => {
@@ -87,32 +16,12 @@ const Navigation = ({ activeSection, onNavigate, isMobileMenuOpen, toggleMobileM
   return (
     // Se usan clases de color estáticas para que Tailwind las detecte
     <nav className="fixed lg:left-0 top-0 w-full lg:w-80 h-16 lg:h-screen bg-gray-900 text-gray-200 shadow-2xl z-50">
-      <style>{`
-        /* Animación para el efecto de brillo del texto */
-        @keyframes text-shine {
-          0% { background-position: 200% center; }
-          100% { background-position: -200% center; }
-        }
-        .text-gradient {
-          background: linear-gradient(90deg, #047857 0%, #34d399 50%, #047857 100%);
-          background-size: 200% auto;
-          color: transparent;
-          -webkit-background-clip: text;
-          background-clip: text;
-          animation: text-shine 5s ease-in-out infinite; /* Animación más lenta por defecto */
-        }
-        .text-gradient:hover {
-          animation-play-state: running; /* Solo se anima al pasar el mouse */
-        }
-      `}</style>
       <div className="container mx-auto px-4 lg:px-0 h-full flex items-center justify-between lg:block">
         {/* Título unificado y más visible */}
         <div className="lg:py-8 flex items-center lg:justify-center">
           <div className="flex-shrink-0 flex items-center lg:flex-col lg:text-center">
             <User size={32} className="text-amber-600 mr-3 lg:mb-4" />
             <h1 className="text-2xl font-bold font-sans text-gray-50">
-              {/* Título con el nuevo estilo de degradado y animación */}
-              <span className="block text-xl font-bold tracking-wider mb-2 text-gradient">CURRICULUM VITAE</span>
               <span className="block">ARELI</span>
               <span className="block">AGUILAR</span>
               <span className="block">DELGADO</span>
@@ -549,109 +458,105 @@ function App() {
         isMobileMenuOpen={isMobileMenuOpen}
         toggleMobileMenu={toggleMobileMenu}
       />
-      {/* Contenido principal */}
-      <main className="lg:ml-80 pt-16 lg:pt-0 p-4 sm:p-6 lg:p-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Se agrega el MarqueeCarousel */}
-          <MarqueeCarousel />
-          <Section ref={(el) => (sectionRefs.current.perfil = el)} id="perfil" title="Perfil Profesional">
-            {/* Se itera sobre los datos del perfil para crear las tarjetas individuales */}
-            {profileData.map((item, index) => (
-              <ProfileCard key={index} icon={item.icon} text={item.text} />
-            ))}
-          </Section>
 
-          <Section ref={(el) => (sectionRefs.current.habilidades = el)} id="habilidades" title="Habilidades Destacadas">
-            <div className="space-y-6">
-              {/* Tarjeta de Experiencia Ejecutiva */}
-              <SkillsCard title="Experiencia Ejecutiva" icon={<Briefcase size={24} />} iconColor="#d97706">
-                <p className="text-gray-700">Más de 15 años de experiencia realizando gestiones administrativas clave a nivel ejecutivo para la alta dirección.</p>
-              </SkillsCard>
+      <main className="lg:ml-80 p-6 lg:p-8">
+        <Section ref={(el) => (sectionRefs.current.perfil = el)} id="perfil" title="Perfil Profesional">
+          {/* Se itera sobre los datos del perfil para crear las tarjetas individuales */}
+          {profileData.map((item, index) => (
+            <ProfileCard key={index} icon={item.icon} text={item.text} />
+          ))}
+        </Section>
 
-              {/* Tarjeta de Habilidades de Gestión Gerencial */}
-              <SkillsCard title="Habilidades de Gestión Gerencial" icon={<LayoutDashboard size={24} />} iconColor="#d97706">
-                <div className="grid md:grid-cols-2 gap-4">
-                  {managementSkills.map((skill, index) => (
-                    <div key={index} className="flex items-start text-gray-700">
-                      <CheckCircle size={16} className="text-emerald-700 mr-2 flex-shrink-0 mt-1" />
-                      <span>{skill}</span>
+        <Section ref={(el) => (sectionRefs.current.habilidades = el)} id="habilidades" title="Habilidades Destacadas">
+          <div className="space-y-6">
+            {/* Tarjeta de Experiencia Ejecutiva */}
+            <SkillsCard title="Experiencia Ejecutiva" icon={<Briefcase size={24} />} iconColor="#d97706">
+              <p className="text-gray-700">Más de 15 años de experiencia realizando gestiones administrativas clave a nivel ejecutivo para la alta dirección.</p>
+            </SkillsCard>
+
+            {/* Tarjeta de Habilidades de Gestión Gerencial */}
+            <SkillsCard title="Habilidades de Gestión Gerencial" icon={<LayoutDashboard size={24} />} iconColor="#d97706">
+              <div className="grid md:grid-cols-2 gap-4">
+                {managementSkills.map((skill, index) => (
+                  <div key={index} className="flex items-start text-gray-700">
+                    <CheckCircle size={16} className="text-emerald-700 mr-2 flex-shrink-0 mt-1" />
+                    <span>{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </SkillsCard>
+
+            {/* Tarjeta de Competencias Tecnológicas */}
+            <SkillsCard title="Competencias Tecnológicas" icon={<Gem size={24} />} iconColor="#d97706">
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(tooltips).map(([label, tooltip], idx) => (
+                  <div key={idx} className="relative group">
+                    <span className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm cursor-help border border-gray-300 group-hover:shadow-md transition">
+                      {label}
+                      {/* Indicador visual discreto para el tooltip */}
+                      <Info size={12} className="inline-block ml-1 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </span>
+                    <div className="absolute z-10 hidden group-hover:block bg-white text-sm text-gray-800 p-3 shadow-xl rounded-md w-64 top-full mt-1 left-1/2 -translate-x-1/2">
+                      {tooltip}
                     </div>
-                  ))}
-                </div>
-              </SkillsCard>
+                  </div>
+                ))}
+              </div>
+            </SkillsCard>
+            {/* Tarjeta de Actitud Personal - Nueva sección */}
+            <SkillsCard title="Actitud Personal" icon={<HeartHandshake size={24} />} iconColor="#d97706">
+              <p className="text-gray-700">Actitud empática, asertiva y positiva.</p>
+            </SkillsCard>
+          </div>
+        </Section>
 
-              {/* Tarjeta de Competencias Tecnológicas */}
-              <SkillsCard title="Competencias Tecnológicas" icon={<Gem size={24} />} iconColor="#d97706">
-                <div className="flex flex-wrap gap-2">
-                  {Object.entries(tooltips).map(([label, tooltip], idx) => (
-                    <div key={idx} className="relative group">
-                      <span className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm cursor-help border border-gray-300 group-hover:shadow-md transition">
-                        {label}
-                        {/* Indicador visual discreto para el tooltip */}
-                        <Info size={12} className="inline-block ml-1 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </span>
-                      <div className="absolute z-10 hidden group-hover:block bg-white text-sm text-gray-800 p-3 shadow-xl rounded-md w-64 top-full mt-1 left-1/2 -translate-x-1/2">
-                        {tooltip}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </SkillsCard>
-              {/* Tarjeta de Actitud Personal - Nueva sección */}
-              <SkillsCard title="Actitud Personal" icon={<HeartHandshake size={24} />} iconColor="#d97706">
-                <p className="text-gray-700">Actitud empática, asertiva y positiva.</p>
-              </SkillsCard>
-            </div>
-          </Section>
+        <Section ref={(el) => (sectionRefs.current.experiencia = el)} id="experiencia" title="Experiencia Profesional">
+          {experienceData.map((exp, index) => (
+            <CollapsibleExperience
+              key={index}
+              date={exp.date}
+              title={exp.title}
+              company={exp.company}
+              location={exp.location}
+              description={exp.description}
+              icon={exp.icon}
+            />
+          ))}
+        </Section>
 
-          <Section ref={(el) => (sectionRefs.current.experiencia = el)} id="experiencia" title="Experiencia Profesional">
-            {experienceData.map((exp, index) => (
-              <CollapsibleExperience
-                key={index}
-                date={exp.date}
-                title={exp.title}
-                company={exp.company}
-                location={exp.location}
-                description={exp.description}
-                icon={exp.icon}
-              />
+        <Section ref={(el) => (sectionRefs.current.proyectos = el)} id="proyectos" title="Proyectos de Innovación y Transformación Digital">
+          {projectsData.map((project, index) => (
+            <CollapsibleExperience
+              key={index}
+              date={project.date}
+              title={project.title}
+              description={project.description}
+              icon={project.icon}
+            />
+          ))}
+        </Section>
+
+        <Section ref={(el) => (sectionRefs.current.educacion = el)} id="educacion" title="Educación Académica">
+          {educationData.map((edu, index) => (
+            <EducationCard
+              key={index}
+              icon={edu.icon}
+              iconColor={edu.iconColor}
+              title={edu.title}
+              period={edu.period}
+              description={edu.description}
+            />
+          ))}
+          <OtherStudies items={otherStudiesData} />
+        </Section>
+
+        <Section ref={(el) => (sectionRefs.current.idiomas = el)} id="idiomas" title="Idiomas">
+          <div className="flex flex-col md:flex-row gap-4">
+            {languageData.map((lang, index) => (
+              <LanguageCard key={index} language={lang.language} proficiency={lang.proficiency} />
             ))}
-          </Section>
-
-          <Section ref={(el) => (sectionRefs.current.proyectos = el)} id="proyectos" title="Proyectos de Innovación y Transformación Digital">
-            {projectsData.map((project, index) => (
-              <CollapsibleExperience
-                key={index}
-                date={project.date}
-                title={project.title}
-                description={project.description}
-                icon={project.icon}
-              />
-            ))}
-          </Section>
-
-          <Section ref={(el) => (sectionRefs.current.educacion = el)} id="educacion" title="Educación Académica">
-            {educationData.map((edu, index) => (
-              <EducationCard
-                key={index}
-                icon={edu.icon}
-                iconColor={edu.iconColor}
-                title={edu.title}
-                period={edu.period}
-                description={edu.description}
-              />
-            ))}
-            <OtherStudies items={otherStudiesData} />
-          </Section>
-
-          <Section ref={(el) => (sectionRefs.current.idiomas = el)} id="idiomas" title="Idiomas">
-            <div className="flex flex-col md:flex-row gap-4">
-              {languageData.map((lang, index) => (
-                <LanguageCard key={index} language={lang.language} proficiency={lang.proficiency} />
-              ))}
-            </div>
-          </Section>
-        </div>
+          </div>
+        </Section>
       </main>
     </div>
   );
