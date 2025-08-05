@@ -262,7 +262,7 @@ const ProfileCard = ({ icon, text }) => {
 // ============================================================================
 // COMPONENTE: EducationCard (Tarjeta de educación)
 // ============================================================================
-// Nuevo componente para las tarjetas de educación.
+// Componente para las tarjetas de educación.
 const EducationCard = ({ icon, iconColor, title, period, description }) => (
   <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
     <div className="flex items-start">
