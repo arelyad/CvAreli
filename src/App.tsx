@@ -219,7 +219,7 @@ const LanguageCard = ({ language, proficiency }) => (
 );
 
 // Nuevo componente para mostrar las habilidades, siguiendo el nuevo diseño
-const SkillsCard = ({ title, icon, iconColor, children }) => (
+const SkillsCard: React.FC<SkillsCardProps> = ({ title, icon, iconColor, children }) => (
   <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
     <div className="flex items-center mb-4">
       <div className="mr-4 flex-shrink-0" style={{ color: iconColor }}>{icon}</div>
