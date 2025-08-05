@@ -93,6 +93,7 @@ const Navigation = ({ activeSection, onNavigate, isMobileMenuOpen, toggleMobileM
           <div className="flex-shrink-0 flex items-center lg:flex-col lg:text-center">
             <User size={32} className="text-amber-600 mr-3 lg:mb-4" />
             <h1 className="text-2xl font-bold font-sans text-gray-50">
+              <span className="block text-emerald-700 text-base font-semibold tracking-wider mb-1">CURRICULUM VITAE</span>
               <span className="block">ARELI</span>
               <span className="block">AGUILAR</span>
               <span className="block">DELGADO</span>
