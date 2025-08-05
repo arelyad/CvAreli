@@ -447,7 +447,10 @@ const educationData = [
     iconColor: '#8B5CF6', // Púrpura para Learning Heroes
     title: 'LEARNING HEROES',
     period: '2024 - 2025',
-    description: 'Programa Intensivo de Transformación Digital\n\nEspecialización en Inteligencia Artificial Aplicada enfocado en implementación de soluciones inteligentes, optimización de procesos empresariales y aplicación práctica de tecnologías emergentes en entornos corporativos.'
+    description: [
+      'Programa Intensivo de Transformación Digital',
+      'Especialización en Inteligencia Artificial Aplicada enfocado en implementación de soluciones inteligentes, optimización de procesos empresariales y aplicación práctica de tecnologías emergentes en entornos corporativos.'
+    ]
   },
   {
     icon: <Landmark size={24} />,
