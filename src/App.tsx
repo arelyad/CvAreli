@@ -1,109 +1,11 @@
-// App.tsx COMPLETO - TODAS LAS SECCIONES INTEGRADAS
+// App.jsx COMPLETO - TODAS LAS SECCIONES INTEGRADAS
 import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom/client';
 import {
   User, Briefcase, GraduationCap, Globe, Zap, Brain, Landmark, FileText, HardHat,
   Users, BarChart, Gem, Lightbulb, Info, Settings, Bot, Handshake, BookOpen, Flag,
   LayoutDashboard, CheckCircle, HeartHandshake, Phone, Mail, Linkedin, Download, Home,
 } from 'lucide-react';
-
-// =========================================================================================================
-//  COMPONENTES NUEVOS PARA EL CARRUSEL
-// =========================================================================================================
-
-// Hook personalizado para manejar la animación del carrusel con JavaScript
-const useMarqueeAnimation = (speed = 30) => {
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    let animationFrameId;
-    let currentTranslateX = 0;
-    const contentWidth = container.scrollWidth / 2; // El ancho de la primera copia del contenido
-
-    const animate = () => {
-      // Mover el contenido
-      currentTranslateX -= 1;
-      
-      // Si el contenido se ha movido una vez por completo, reinicia la posición
-      if (currentTranslateX <= -contentWidth) {
-        currentTranslateX = 0;
-      }
-
-      container.style.transform = `translateX(${currentTranslateX}px)`;
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [speed]);
-
-  return { containerRef };
-};
-
-const MarqueeCarousel = () => {
-  const { containerRef } = useMarqueeAnimation();
-
-  const phrases = [
-    { text: 'Estrategia Empresarial', icon: <Landmark size={24} /> },
-    { text: 'Orientación a Resultados', icon: <BarChart size={24} /> },
-    { text: 'Pensamiento Crítico y Sistémico', icon: <Brain size={24} /> },
-    { text: 'IA y Tecnología en Evolución', icon: <Zap size={24} /> },
-    { text: 'Gestión de Proyectos', icon: <LayoutDashboard size={24} /> },
-    { text: 'Análisis para la Toma de Decisiones', icon: <Gem size={24} /> },
-  ];
-
-  // Duplicamos las frases para crear un efecto de loop infinito
-  const fullContent = [...phrases, ...phrases];
-
-  return (
-    <div className="bg-transparent overflow-hidden h-16 w-full lg:w-[calc(100vw-20rem)] lg:ml-80">
-      {/* El estilo para ocultar en móviles se mantiene aquí */}
-      <style>{`
-        /* Ocultar el carrusel en pantallas pequeñas para evitar solapamientos con la navegación */
-        @media (max-width: 1023px) {
-          .marquee-container-wrapper {
-            display: none;
-          }
-        }
-        .marquee-container {
-            display: flex;
-            height: 100%;
-        }
-        .marquee-item {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-            padding: 0 2rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: #106659;
-        }
-        .marquee-item .icon {
-            color: #d97706;
-            margin-right: 0.5rem;
-            display: inline-block;
-            vertical-align: middle;
-        }
-      `}</style>
-      <div className="marquee-container-wrapper h-full flex items-center">
-        {/* El `ref` se adjunta al contenedor que animaremos */}
-        <div ref={containerRef} className="marquee-container">
-          {fullContent.map((item, index) => (
-            <div key={index} className="marquee-item">
-              <span className="icon">{item.icon}</span>
-              <span>{item.text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // =========================================================================================================
 //  DATA STRUCTURE - TODOS LOS DATOS EN UN SOLO OBJETO PARA FACILITAR LA GESTIÓN Y FUTURAS ACTUALIZACIONES
@@ -296,6 +198,73 @@ const portfolioData = {
 };
 
 // =========================================================================================================
+//  COMPONENTES NUEVOS PARA EL CARRUSEL
+// =========================================================================================================
+const MarqueeCarousel = () => {
+  const phrases = [
+    { text: 'Estrategia Empresarial', icon: <Landmark size={24} /> },
+    { text: 'Orientación a Resultados', icon: <BarChart size={24} /> },
+    { text: 'Pensamiento Crítico y Sistémico', icon: <Brain size={24} /> },
+    { text: 'IA y Tecnología en Evolución', icon: <Zap size={24} /> },
+    { text: 'Gestión de Proyectos', icon: <LayoutDashboard size={24} /> },
+    { text: 'Análisis para la Toma de Decisiones', icon: <Gem size={24} /> },
+  ];
+
+  // Duplicamos las frases para crear un efecto de loop infinito
+  const fullContent = [...phrases, ...phrases];
+
+  return (
+    <div className="bg-transparent overflow-hidden h-16 w-full lg:w-[calc(100vw-20rem)] lg:ml-80 marquee-container-wrapper">
+      <style>{`
+        /* Ocultar el carrusel en pantallas pequeñas para evitar solapamientos con la navegación */
+        @media (max-width: 1023px) {
+          .marquee-container-wrapper {
+            display: none;
+          }
+        }
+        @keyframes marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-100%); }
+        }
+        .marquee-container {
+          display: flex;
+          height: 100%;
+          animation: marquee 30s linear infinite;
+        }
+        .marquee-item {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+          padding: 0 2rem;
+          font-family: 'Inter', sans-serif;
+          font-size: 1.25rem;
+          font-weight: 500;
+          color: #106659;
+        }
+        .marquee-item .icon {
+          color: #d97706;
+          margin-right: 0.5rem;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      `}</style>
+      <div className="h-full flex items-center">
+        <div className="marquee-container">
+          {fullContent.map((item, index) => (
+            <div key={index} className="marquee-item">
+              <span className="icon">{item.icon}</span>
+              <span>{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+// =========================================================================================================
 //  COMPONENTES
 // =========================================================================================================
 
@@ -383,18 +352,20 @@ const Navigation = ({ activeSection, onNavigate, isMobileMenuOpen, toggleMobileM
 };
 
 // Componente para las secciones
-const Section = React.forwardRef(({ id, title, children }, ref) => (
-  <section
-    id={id}
-    ref={ref}
-    className="bg-white p-8 rounded-2xl shadow-xl mb-12 transform hover:scale-[1.01] transition-transform duration-300"
-  >
-    <div className="flex items-center gap-4 mb-6 border-b pb-4 border-amber-600">
-      <h2 className="text-3xl font-bold text-emerald-700 font-sans">{title}</h2>
-    </div>
-    {children}
-  </section>
-));
+const Section = React.forwardRef(({ id, title, children }, ref) => {
+  return (
+    <section
+      id={id}
+      ref={ref}
+      className="bg-white p-8 rounded-2xl shadow-xl mb-12 transform hover:scale-[1.01] transition-transform duration-300"
+    >
+      <div className="flex items-center gap-4 mb-6 border-b pb-4 border-amber-600">
+        <h2 className="text-3xl font-bold text-emerald-700 font-sans">{title}</h2>
+      </div>
+      {children}
+    </section>
+  );
+});
 
 /**
  * Componente para mostrar la experiencia profesional y proyectos de forma colapsable.
@@ -456,93 +427,105 @@ const CollapsibleExperience = ({ date, title, company, location, description, ic
 };
 
 // Componente para las tarjetas del perfil profesional
-const ProfileCard = ({ icon, text }) => (
-  <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
-    <div className="flex items-start">
-      <div className="mr-4 text-emerald-700 mt-1">{icon}</div>
-      <p className="text-gray-800 text-lg leading-relaxed">{text}</p>
+const ProfileCard = ({ icon, text }) => {
+  return (
+    <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
+      <div className="flex items-start">
+        <div className="mr-4 text-emerald-700 mt-1">{icon}</div>
+        <p className="text-gray-800 text-lg leading-relaxed">{text}</p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Nuevo componente para las tarjetas de educación
-const EducationCard = ({ icon, iconColor, title, period, description }) => (
-  <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
-    <div className="flex items-start">
-      <div className="mr-4 flex-shrink-0" style={{ color: iconColor }}>{icon}</div>
-      <div>
-        <h3 className="text-lg font-bold text-emerald-700">{title}</h3>
-        <p className="text-sm font-medium text-gray-600 mb-2">{period}</p>
-        {Array.isArray(description) ? (
-          <ul className="list-none space-y-2">
-            {description.map((item, index) => (
-              <li key={index} className="flex items-start text-gray-700">
-                <span className="text-amber-600 mr-2 flex-shrink-0">&rarr;</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-gray-700">{description}</p>
-        )}
-      </div>
-    </div>
-  </div>
-);
-
-// Nuevo componente para la lista de "Otros estudios" con íconos
-const OtherStudies = ({ items }) => (
-  <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
-    <h3 className="text-lg font-bold text-emerald-700 mb-2">Otros estudios:</h3>
-    <ul className="list-none space-y-2">
-      {items.map((item, index) => (
-        <li key={index} className="flex items-start text-gray-700">
-          <BookOpen className="mr-2 flex-shrink-0 text-amber-600" size={20} />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
-
-// Nuevo componente para la tarjeta de idioma, actualizado con el nuevo estilo
-const LanguageCard = ({ language, proficiency }) => (
-  <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 flex-1 min-w-[150px] transition-all duration-300 hover:shadow-lg">
-    <div className="flex items-center">
-      <Flag className="w-6 h-6 mr-4 flex-shrink-0 text-amber-600" />
-      <div>
-        <h3 className="text-lg font-bold text-emerald-700">{language}</h3>
-        <p className="text-sm font-medium text-gray-600">{proficiency}</p>
-      </div>
-    </div>
-  </div>
-);
-
-// Nuevo componente para mostrar las habilidades, siguiendo el nuevo diseño
-const SkillsCard = ({ title, icon, iconColor, children }) => (
-  <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
-    <div className="flex items-center mb-4">
-      <div className="mr-4 flex-shrink-0" style={{ color: iconColor }}>{icon}</div>
-      <h3 className="text-lg font-bold text-emerald-700">{title}</h3>
-    </div>
-    {children}
-  </div>
-);
-
-// Nuevo componente para la tarjeta de contacto
-const ContactCard = ({ icon, label, value, href }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className="block">
-    <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200 transition-all duration-300 hover:bg-gray-50 hover:shadow-lg">
+const EducationCard = ({ icon, iconColor, title, period, description }) => {
+  return (
+    <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
       <div className="flex items-start">
-        <div className="mr-4 text-amber-600 mt-1">{icon}</div>
+        <div className="mr-4 flex-shrink-0" style={{ color: iconColor }}>{icon}</div>
         <div>
-          <p className="text-sm font-semibold text-gray-500">{label}</p>
-          <p className="text-lg font-bold text-emerald-700">{value}</p>
+          <h3 className="text-lg font-bold text-emerald-700">{title}</h3>
+          <p className="text-sm font-medium text-gray-600 mb-2">{period}</p>
+          {Array.isArray(description) ? (
+            <ul className="list-none space-y-2">
+              {description.map((item, index) => (
+                <li key={index} className="flex items-start text-gray-700">
+                  <span className="text-amber-600 mr-2 flex-shrink-0">&rarr;</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-700">{description}</p>
+          )}
         </div>
       </div>
     </div>
-  </a>
-);
+  );
+};
+
+// Nuevo componente para la lista de "Otros estudios" con íconos
+const OtherStudies = ({ items }) => {
+  return (
+    <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
+      <h3 className="text-lg font-bold text-emerald-700 mb-2">Otros estudios:</h3>
+      <ul className="list-none space-y-2">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-start text-gray-700">
+            <BookOpen className="mr-2 flex-shrink-0 text-amber-600" size={20} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+// Nuevo componente para la tarjeta de idioma, actualizado con el nuevo estilo
+const LanguageCard = ({ language, proficiency }) => {
+  return (
+    <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200 flex-1 min-w-[150px] transition-all duration-300 hover:shadow-lg">
+      <div className="flex items-center">
+        <Flag className="w-6 h-6 mr-4 flex-shrink-0 text-amber-600" />
+        <div>
+          <h3 className="text-lg font-bold text-emerald-700">{language}</h3>
+          <p className="text-sm font-medium text-gray-600">{proficiency}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Nuevo componente para mostrar las habilidades, siguiendo el nuevo diseño
+const SkillsCard = ({ title, icon, iconColor, children }) => {
+  return (
+    <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200">
+      <div className="flex items-center mb-4">
+        <div className="mr-4 flex-shrink-0" style={{ color: iconColor }}>{icon}</div>
+        <h3 className="text-lg font-bold text-emerald-700">{title}</h3>
+      </div>
+      {children}
+    </div>
+  );
+};
+
+// Nuevo componente para la tarjeta de contacto
+const ContactCard = ({ icon, label, value, href }) => {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="block">
+      <div className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200 transition-all duration-300 hover:bg-gray-50 hover:shadow-lg">
+        <div className="flex items-start">
+          <div className="mr-4 text-amber-600 mt-1">{icon}</div>
+          <div>
+            <p className="text-sm font-semibold text-gray-500">{label}</p>
+            <p className="text-lg font-bold text-emerald-700">{value}</p>
+          </div>
+        </div>
+      </div>
+    </a>
+  );
+};
 
 // =========================================================================================================
 //  COMPONENTE PRINCIPAL DE LA APLICACIÓN
@@ -592,7 +575,6 @@ function App() {
         isMobileMenuOpen={isMobileMenuOpen}
         toggleMobileMenu={toggleMobileMenu}
       />
-      {/* Nuevo componente del carrusel */}
       <MarqueeCarousel />
 
       <main className="lg:ml-80 p-6 lg:p-8">
@@ -620,7 +602,6 @@ function App() {
             </SkillsCard>
 
             <SkillsCard title="Competencias" icon={<Gem size={24} />} iconColor="#d97706">
-              {/* Nueva línea de texto agregada */}
               <p className="text-gray-700 mb-4">- Desliza el cursor sobre cada competencia para conocer más detalles.</p>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(portfolioData.skills.tooltips).map(([label, tooltip], idx) => (
@@ -629,7 +610,6 @@ function App() {
                       {label}
                       <Info size={12} className="inline-block ml-1 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </span>
-                    {/* Tooltip modificado con fondo más pastel y texto del color principal */}
                     <div className="absolute z-10 hidden group-hover:block bg-amber-200 text-emerald-700 font-bold text-sm p-3 shadow-xl rounded-md w-64 top-full mt-1 left-1/2 -translate-x-1/2">
                       {tooltip}
                     </div>
@@ -692,7 +672,6 @@ function App() {
           </div>
         </Section>
         
-        {/* Nueva Sección de Contacto */}
         <Section ref={(el) => (sectionRefs.current.contacto = el)} id="contacto" title="Contacto">
           <div className="grid md:grid-cols-2 gap-4">
             <ContactCard 
@@ -724,6 +703,18 @@ function App() {
       </main>
     </div>
   );
+}
+
+// Esta parte es la que simula el archivo index.js, haciendo que la app sea autocontenida.
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+} else {
+  console.error("No se encontró el elemento con id 'root'. Asegúrate de que tu HTML tenga <div id='root'></div>.");
 }
 
 export default App;
