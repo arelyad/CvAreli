@@ -518,7 +518,9 @@ function App() {
               </div>
             </SkillsCard>
 
-            <SkillsCard title="Competencias Tecnológicas" icon={<Gem size={24} />} iconColor="#d97706">
+            <SkillsCard title="Competencias" icon={<Gem size={24} />} iconColor="#d97706">
+              {/* Nueva línea de texto agregada */}
+              <p className="text-gray-700 mb-4">- Desliza el cursor sobre cada competencia para conocer más detalles.</p>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(portfolioData.skills.tooltips).map(([label, tooltip], idx) => (
                   <div key={idx} className="relative group">
