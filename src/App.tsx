@@ -552,7 +552,13 @@ function App() {
         isMobileMenuOpen={isMobileMenuOpen}
         toggleMobileMenu={toggleMobileMenu}
       />
-      <MarqueeCarousel />
+      {/* Se ha ajustado el carrusel para que tenga un margen superior más grande
+          para bajarlo y quede más centrado en el espacio inicial. */}
+      <div className="lg:ml-80">
+        <div className="mt-28 lg:mt-8"> {/* Ajuste sutil del margen superior aquí */}
+          <MarqueeCarousel />
+        </div>
+      </div>
       <main className="lg:ml-80 p-6 lg:p-8">
         <Section ref={(el) => (sectionRefs.current.perfil = el)} id="perfil" title="Perfil Profesional">
           {/* Se itera sobre los datos del perfil para crear las tarjetas individuales */}
