@@ -1,6 +1,77 @@
 // App.tsx COMPLETO - TODAS LAS SECCIONES INTEGRADAS
 import React, { useState, useEffect, useRef } from 'react';
-import { User, Briefcase, GraduationCap, Globe, Zap, Brain, Landmark, FileText, HardHat, Users, BarChart, Gem, Lightbulb, Info, Settings, Bot, Handshake, BookOpen, Flag, LayoutDashboard, CheckCircle, HeartHandshake } from 'lucide-react';
+import {
+  User, Briefcase, GraduationCap, Globe, Zap, Brain, Landmark, FileText, HardHat,
+  Users, BarChart, Gem, Lightbulb, Info, Settings, Bot, Handshake, BookOpen,
+  Flag, LayoutDashboard, CheckCircle, HeartHandshake, Target, FlaskConical, Scale
+} from 'lucide-react';
+
+// Componente del carrusel interactivo tipo "marquee"
+const MarqueeCarousel = () => {
+  // Lista completa de frases con iconos
+  const phrases = [
+    { text: 'Estrategia Empresarial', icon: <BarChart size={24} /> },
+    { text: 'Orientación a Resultados', icon: <Target size={24} /> },
+    { text: 'Pensamiento Crítico y Sistémico', icon: <FlaskConical size={24} /> },
+    { text: 'IA y Tecnología en Evolución', icon: <Brain size={24} /> },
+    { text: 'Gestión de Proyectos', icon: <LayoutDashboard size={24} /> },
+    { text: 'Análisis para la Toma de Decisiones', icon: <Scale size={24} /> }
+  ];
+
+  const iconColor = '#f97316'; // El color naranja de los íconos de la imagen 3
+  const textColor = '#047857'; // El color verde oscuro del texto
+
+  return (
+    // Contenedor principal del carrusel con desbordamiento oculto
+    <div className="relative w-full overflow-hidden bg-transparent py-4 z-10 lg:mt-0">
+      <style>{`
+        /*
+         * Animación para el desplazamiento continuo.
+         * Se ha mejorado la estructura para eliminar el "salto". La animación
+         * mueve el contenedor interno (marquee-track) un 50% de su propio ancho.
+         * Dado que el contenido está duplicado, esto crea un bucle perfecto.
+         */
+        @keyframes scroll-perfect {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); } /* Se mueve el 50% de su propio ancho */
+        }
+        
+        /* Contenedor que se desplaza y aplica la animación */
+        .marquee-track {
+          display: flex;
+          white-space: nowrap;
+          animation: scroll-perfect 30s linear infinite; /* Velocidad: 30s */
+          gap: 2rem; /* Espaciado entre frases */
+          will-change: transform; /* Optimización para una animación más suave */
+        }
+
+        /* Pausa la animación al pasar el mouse por encima para mejorar la UX */
+        .marquee-track:hover {
+          animation-play-state: paused;
+        }
+
+        /* Estilo para cada ítem del carrusel */
+        .marquee-item {
+          display: inline-flex;
+          align-items: center;
+          font-family: 'Inter', sans-serif;
+          font-weight: normal;
+          font-size: 1.125rem;
+          flex-shrink: 0; /* Evita que los items se reduzcan de tamaño */
+        }
+      `}</style>
+      <div className="marquee-track">
+        {/* Se duplica el contenido para asegurar un bucle visualmente perfecto sin espacios en blanco */}
+        {[...phrases, ...phrases].map((item, index) => (
+          <span key={index} className="marquee-item">
+            <span className="mr-3" style={{ color: iconColor }}>{item.icon}</span>
+            <span style={{ color: textColor }}>{item.text}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 // Componente de navegación rediseñado con clases estáticas de Tailwind
 const Navigation = ({ activeSection, onNavigate, isMobileMenuOpen, toggleMobileMenu }) => {
@@ -461,7 +532,7 @@ function App() {
         isMobileMenuOpen={isMobileMenuOpen}
         toggleMobileMenu={toggleMobileMenu}
       />
-
+      <MarqueeCarousel />
       <main className="lg:ml-80 p-6 lg:p-8">
         <Section ref={(el) => (sectionRefs.current.perfil = el)} id="perfil" title="Perfil Profesional">
           {/* Se itera sobre los datos del perfil para crear las tarjetas individuales */}
