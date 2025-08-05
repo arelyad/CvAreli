@@ -3,8 +3,7 @@ import {
   User, Briefcase, GraduationCap, Globe, Zap, Brain, Landmark, FileText, HardHat,
   Users, BarChart, Gem, Lightbulb, Info, Settings, Bot, Handshake, BookOpen,
   Flag, LayoutDashboard, CheckCircle, HeartHandshake, Target, FlaskConical, Scale
-} from 'lucide-react';
-
+} from 'lucid
 // ============================================================================
 // COMPONENTE: MarqueeCarousel (Carrusel interactivo tipo "marquee")
 // ============================================================================
