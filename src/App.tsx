@@ -7,6 +7,75 @@ import {
 } from 'lucide-react';
 
 // =========================================================================================================
+//  COMPONENTES NUEVOS PARA EL CARRUSEL
+// =========================================================================================================
+const MarqueeCarousel = () => {
+  const phrases = [
+    { text: 'Estrategia Empresarial', icon: <Landmark size={24} /> },
+    { text: 'Orientación a Resultados', icon: <BarChart size={24} /> },
+    { text: 'Pensamiento Crítico y Sistémico', icon: <Brain size={24} /> },
+    { text: 'IA y Tecnología en Evolución', icon: <Zap size={24} /> },
+    { text: 'Gestión de Proyectos', icon: <LayoutDashboard size={24} /> },
+    { text: 'Análisis para la Toma de Decisiones', icon: <Gem size={24} /> },
+  ];
+
+  // Duplicamos las frases para crear un efecto de loop infinito
+  const fullContent = [...phrases, ...phrases];
+
+  return (
+    <div className="bg-transparent overflow-hidden h-16 w-full lg:w-[calc(100vw-20rem)] lg:ml-80">
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .marquee-container {
+          display: flex;
+          animation: marquee 60s linear infinite;
+        }
+
+        .marquee-item {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+          padding: 0 2rem;
+          font-family: 'Inter', sans-serif;
+          font-size: 1.25rem; /* Ajustado para mejor legibilidad */
+          font-weight: 500;
+          color: #106659; /* Verde jade oscuro para el texto, como se solicitó */
+        }
+
+        .marquee-item .icon {
+          color: #d97706; /* Color ámbar oscuro para los íconos, como se solicitó */
+          margin-right: 0.5rem;
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        /* Ocultar el carrusel en pantallas pequeñas para evitar solapamientos con la navegación */
+        @media (max-width: 1023px) {
+          .marquee-container-wrapper {
+            display: none;
+          }
+        }
+      `}</style>
+      <div className="marquee-container-wrapper h-full flex items-center">
+        <div className="marquee-container">
+          {fullContent.map((item, index) => (
+            <div key={index} className="marquee-item">
+              <span className="icon">{item.icon}</span>
+              <span>{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// =========================================================================================================
 //  DATA STRUCTURE - TODOS LOS DATOS EN UN SOLO OBJETO PARA FACILITAR LA GESTIÓN Y FUTURAS ACTUALIZACIONES
 // =========================================================================================================
 const portfolioData = {
@@ -493,6 +562,8 @@ function App() {
         isMobileMenuOpen={isMobileMenuOpen}
         toggleMobileMenu={toggleMobileMenu}
       />
+      {/* Nuevo componente del carrusel */}
+      <MarqueeCarousel />
 
       <main className="lg:ml-80 p-6 lg:p-8">
         <Section ref={(el) => (sectionRefs.current.perfil = el)} id="perfil" title="Perfil Profesional">
