@@ -208,8 +208,8 @@ const Navigation = ({ activeSection, onNavigate, isMobileMenuOpen, toggleMobileM
     { id: 'perfil', title: 'Perfil Profesional', icon: <User size={20} /> },
     { id: 'habilidades', title: 'Habilidades Destacadas', icon: <Gem size={20} /> },
     { id: 'experiencia', title: 'Experiencia Profesional', icon: <Briefcase size={20} /> },
-    { id: 'proyectos', title: 'Proyectos de Innovación y Transformación Digital', icon: <Lightbulb size={20} /> }, // Título de proyecto actualizado
-    { id: 'educacion', title: 'Educación Académica', icon: <GraduationCap size={20} /> }, // Título de educación actualizado
+    { id: 'proyectos', title: 'Proyectos de Innovación y Transformación Digital', icon: <Lightbulb size={20} /> },
+    { id: 'educacion', title: 'Educación Académica', icon: <GraduationCap size={20} /> },
     { id: 'idiomas', title: 'Idiomas', icon: <Globe size={20} /> },
     { id: 'contacto', title: 'Contacto', icon: <Handshake size={20} /> },
   ];
@@ -526,7 +526,8 @@ function App() {
                       {label}
                       <Info size={12} className="inline-block ml-1 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </span>
-                    <div className="absolute z-10 hidden group-hover:block bg-white text-sm text-gray-800 p-3 shadow-xl rounded-md w-64 top-full mt-1 left-1/2 -translate-x-1/2">
+                    {/* Tooltip modificado con fondo más pastel y texto del color principal */}
+                    <div className="absolute z-10 hidden group-hover:block bg-amber-200 text-emerald-700 font-bold text-sm p-3 shadow-xl rounded-md w-64 top-full mt-1 left-1/2 -translate-x-1/2">
                       {tooltip}
                     </div>
                   </div>
