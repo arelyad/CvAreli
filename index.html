@@ -1,13 +1,228 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive CV/Resume Application</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Areli Aguilar - CV Interactivo</title>
+    <!-- Incluye Tailwind CSS desde CDN para un diseño rápido y responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo personalizado para las transiciones */
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .collapsible-content.open {
+            max-height: 1000px; /* Un valor alto para asegurar que todo el contenido se muestre */
+            transition: max-height 0.5s ease-in;
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .chevron.open {
+            transform: rotate(180deg);
+        }
+        /* Oculta el scrollbar en la sección de competencias para una mejor visualización */
+        .competencias-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        .competencias-scroll-container {
+            -ms-overflow-style: none;  /* IE y Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Contenedor principal del CV -->
+    <main class="max-w-4xl mx-auto p-4 md:p-8 bg-white shadow-xl rounded-2xl my-8">
+
+        <!-- Encabezado de la página -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-800">ARELI AGUILAR DELGADO</h1>
+            <p class="text-lg md:text-xl text-gray-600 mt-2">Ejecutiva bilingüe con experiencia en transformación digital e IA</p>
+            <div class="mt-4 flex flex-col md:flex-row justify-center items-center gap-2 text-sm text-gray-500">
+                <span>55 4341 3490</span>
+                <span>•</span>
+                <a href="mailto:areliaguilarin@gmail.com" class="text-blue-500 hover:underline">areliaguilarin@gmail.com</a>
+            </div>
+        </header>
+
+        <!-- Sección de Perfil Profesional -->
+        <section class="mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-2 mb-4">Perfil Profesional</h2>
+            <p class="text-gray-700 leading-relaxed">
+                Ejecutiva bilingüe (inglés/español) con más de 20 años de experiencia en desarrollo de negocios,
+                gestión estratégica de proyectos y análisis de información clave para la toma de decisiones de alta dirección.
+                Mi trayectoria combina habilidades avanzadas en planeación y gestión administrativa con una visión
+                estratégica orientada a la transformación digital. Integro tecnologías emergentes -incluida la inteligencia
+                artificial- para modernizar procesos, fortalecer la gestión empresarial y optimizar la toma de decisiones.
+            </p>
+        </section>
+
+        <!-- Sección de Experiencia Profesional (colapsable) -->
+        <section class="mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-2 mb-4">Experiencia Profesional</h2>
+
+            <!-- Item 1 de experiencia -->
+            <div class="border-b border-gray-200 py-4">
+                <button class="w-full flex justify-between items-center text-left focus:outline-none collapsible-btn">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-900">Colaboración en Proyectos Empresariales con Inteligencia Artificial</h3>
+                        <p class="text-sm text-gray-500">Febrero 2024 - Actualidad</p>
+                    </div>
+                    <!-- SVG de la flecha que no cambia de tamaño -->
+                    <svg class="h-6 w-6 text-blue-500 chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="collapsible-content">
+                    <ul class="list-disc list-inside mt-4 pl-4 text-gray-700">
+                        <li>Fint Bransversal: Transformación digital y estrategia con tecnologías emergentes.</li>
+                        <li>AI STARS LEAGUE: Diciembre 2024 - Junio 2025.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Item 2 de experiencia -->
+            <div class="border-b border-gray-200 py-4">
+                <button class="w-full flex justify-between items-center text-left focus:outline-none collapsible-btn">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-900">Aeropuertos y Servicios Auxiliares (Gobierno)</h3>
+                        <p class="text-sm text-gray-500">Abril 2020 - Enero 2022</p>
+                    </div>
+                    <!-- SVG de la flecha que no cambia de tamaño -->
+                    <svg class="h-6 w-6 text-blue-500 chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="collapsible-content">
+                    <ul class="list-disc list-inside mt-4 pl-4 text-gray-700">
+                        <li>Jefatura de Promoción y Gestión, Dirección Técnica y Consultoría.</li>
+                        <li>Consultor de Proyectos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Item 3 de experiencia -->
+            <div class="border-b border-gray-200 py-4">
+                <button class="w-full flex justify-between items-center text-left focus:outline-none collapsible-btn">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-900">Gerente Ventas a Gobierno e Infraestructura</h3>
+                        <p class="text-sm text-gray-500">Mayo 2018 - Abril 2020</p>
+                    </div>
+                    <!-- SVG de la flecha que no cambia de tamaño -->
+                    <svg class="h-6 w-6 text-blue-500 chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="collapsible-content">
+                    <ul class="list-disc list-inside mt-4 pl-4 text-gray-700">
+                        <li>Detalles sobre el rol de Gerente...</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Habilidades y Competencias -->
+        <section class="mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-2 mb-4">Habilidades Destacadas</h2>
+            
+            <!-- Corrección para el texto que se superpone en móvil -->
+            <p class="text-center text-gray-500 mb-4 md:text-left md:mb-8 md:text-lg italic">
+                Desliza el cursor sobre cada competencia para conocer más detalles.
+            </p>
+
+            <!-- Contenedor de habilidades con scroll horizontal para mejor visualización en móvil -->
+            <div class="flex overflow-x-scroll gap-4 pb-4 competencias-scroll-container">
+                <!-- Tarjeta de Habilidad 1 -->
+                <div class="flex-none w-64 h-48 bg-white border border-gray-200 rounded-lg shadow-md p-4 flex flex-col justify-center items-center text-center hover:shadow-xl transition-shadow duration-300">
+                    <span class="text-4xl mb-2">⭐</span>
+                    <h3 class="font-bold text-lg">Experiencia Ejecutiva</h3>
+                    <p class="text-sm text-gray-600 mt-2">Más de 15 años realizando gestiones administrativas clave.</p>
+                </div>
+
+                <!-- Tarjeta de Habilidad 2 -->
+                <div class="flex-none w-64 h-48 bg-white border border-gray-200 rounded-lg shadow-md p-4 flex flex-col justify-center items-center text-center hover:shadow-xl transition-shadow duration-300">
+                    <span class="text-4xl mb-2">📊</span>
+                    <h3 class="font-bold text-lg">Análisis de Información</h3>
+                    <p class="text-sm text-gray-600 mt-2">Identificación de datos clave para la toma de decisiones.</p>
+                </div>
+                
+                <!-- Tarjeta de Habilidad 3 -->
+                <div class="flex-none w-64 h-48 bg-white border border-gray-200 rounded-lg shadow-md p-4 flex flex-col justify-center items-center text-center hover:shadow-xl transition-shadow duration-300">
+                    <span class="text-4xl mb-2">🤝</span>
+                    <h3 class="font-bold text-lg">Vínculos Institucionales</h3>
+                    <p class="text-sm text-gray-600 mt-2">Amplia experiencia en relaciones comerciales estratégicas.</p>
+                </div>
+                
+                <!-- Tarjeta de Habilidad 4 -->
+                <div class="flex-none w-64 h-48 bg-white border border-gray-200 rounded-lg shadow-md p-4 flex flex-col justify-center items-center text-center hover:shadow-xl transition-shadow duration-300">
+                    <span class="text-4xl mb-2">🤖</span>
+                    <h3 class="font-bold text-lg">Inteligencia Artificial</h3>
+                    <p class="text-sm text-gray-600 mt-2">Aplicación en la optimización de procesos empresariales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Educación Académica -->
+        <section class="mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-2 mb-4">Educación Académica</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-bold text-lg">LEARNING HEROES</h3>
+                    <p class="text-sm text-gray-500">2024-2025</p>
+                    <p class="text-gray-700">Programa Intensivo de Transformación Digital y Especialización en IA Aplicada.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">ITESM</h3>
+                    <p class="text-sm text-gray-500">2002-2004</p>
+                    <p class="text-gray-700">Master en Administración de Negocios (MBA).</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">ITESM</h3>
+                    <p class="text-sm text-gray-500">1991-1995</p>
+                    <p class="text-gray-700">Licenciatura en Mercadotecnia (Mención Honorífica).</p>
+                </div>
+                <div class="mt-4">
+                    <h3 class="font-bold text-lg">Otros estudios</h3>
+                    <ul class="list-disc list-inside mt-2 text-gray-700">
+                        <li>Diploma en Marketing Digital; ITAM 2022.</li>
+                        <li>Diploma en Gestión Estratégica de las Finanzas Públicas.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // JavaScript para manejar las secciones colapsables
+        document.addEventListener('DOMContentLoaded', () => {
+            const collapsibleButtons = document.querySelectorAll('.collapsible-btn');
+
+            collapsibleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    const chevron = button.querySelector('.chevron');
+
+                    // Cierra las otras secciones si están abiertas
+                    collapsibleButtons.forEach(otherButton => {
+                        if (otherButton !== button) {
+                            const otherContent = otherButton.nextElementSibling;
+                            const otherChevron = otherButton.querySelector('.chevron');
+                            otherContent.classList.remove('open');
+                            otherChevron.classList.remove('open');
+                        }
+                    });
+
+                    // Abre o cierra la sección actual
+                    content.classList.toggle('open');
+                    chevron.classList.toggle('open');
+                });
+            });
+        });
+    </script>
+</body>
 </html>
